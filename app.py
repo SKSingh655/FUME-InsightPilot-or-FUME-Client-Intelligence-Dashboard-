@@ -231,24 +231,64 @@ async def get_transcript():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-def clean_schema(schema: dict) -> dict:
+def dereference_schema(schema: dict, defs: dict = None) -> dict:
     """
-    Recursively removes keys that are not supported by the Gemini API's OpenAPI Schema parser,
-    such as 'default', 'title', 'additionalProperties', and 'examples'.
+    Recursively inlines all definitions (dereferences $ref) in a JSON schema,
+    so that the schema contains no $defs or $ref keys, which Gemini's API rejects.
     """
     if not isinstance(schema, dict):
         return schema
+        
+    if defs is None:
+        defs = schema.get("$defs", schema.get("definitions", {}))
+        # Recursively dereference definitions
+        defs = {k: dereference_schema(v, defs) for k, v in defs.items()}
+        
+    if "$ref" in schema:
+        ref_path = schema["$ref"]
+        ref_key = ref_path.split("/")[-1]
+        if ref_key in defs:
+            from copy import deepcopy
+            ref_schema = deepcopy(defs[ref_key])
+            for k, v in schema.items():
+                if k != "$ref":
+                    ref_schema[k] = v
+            return dereference_schema(ref_schema, defs)
+            
     cleaned = {}
     for k, v in schema.items():
-        if k in ["title", "default", "additionalProperties", "examples"]:
+        if k in ["$defs", "definitions"]:
             continue
         if isinstance(v, dict):
-            cleaned[k] = clean_schema(v)
+            cleaned[k] = dereference_schema(v, defs)
         elif isinstance(v, list):
-            cleaned[k] = [clean_schema(item) if isinstance(item, dict) else item for item in v]
+            cleaned[k] = [dereference_schema(item, defs) if isinstance(item, dict) else item for item in v]
         else:
             cleaned[k] = v
     return cleaned
+
+
+def clean_schema(schema: dict) -> dict:
+    # First dereference the schema to flatten any nested Pydantic models
+    flat_schema = dereference_schema(schema)
+    
+    # Then recursively remove 'title', 'default', 'additionalProperties', and 'examples'
+    def remove_unsupported_keys(node):
+        if not isinstance(node, dict):
+            return node
+        cleaned = {}
+        for k, v in node.items():
+            if k in ["title", "default", "additionalProperties", "examples"]:
+                continue
+            if isinstance(v, dict):
+                cleaned[k] = remove_unsupported_keys(v)
+            elif isinstance(v, list):
+                cleaned[k] = [remove_unsupported_keys(item) if isinstance(item, dict) else item for item in v]
+            else:
+                cleaned[k] = v
+        return cleaned
+        
+    return remove_unsupported_keys(flat_schema)
 
 
 @app.post("/api/analyze")
