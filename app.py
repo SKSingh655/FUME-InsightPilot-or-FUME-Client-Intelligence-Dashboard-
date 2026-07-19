@@ -344,9 +344,9 @@ async def analyze_transcript(request: Request):
         - Suggest immediate next actions for the coach and assign any pending tasks.
         """
         
-        # We use gemini-1.5-flash as it is highly efficient and supports structured output
+        # We use gemini-2.0-flash as it is highly efficient and supports structured output
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.0-flash",
             system_instruction=system_instruction
         )
         
