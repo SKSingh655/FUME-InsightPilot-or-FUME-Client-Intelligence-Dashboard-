@@ -4,7 +4,49 @@ This repository contains the prototype and engineering documentation for the **F
 
 ## 1. What was Built (Architecture Overview)
 
-We have built a **Human-in-the-Loop Client Intelligence Dashboard**. It consists of:
+We have built a **Human-in-the-Loop Client Intelligence Dashboard**. The high-level architecture diagram below shows how the transcript, backend models, and frontend client communicate:
+
+```mermaid
+graph TD
+    subgraph Inputs
+        A[transcript.txt - Active Test Data]
+        A2[transcript2.txt - Original Case Study]
+    end
+    
+    subgraph FastAPI Backend Server
+        B[app.py Web App]
+        C[Pydantic Schema Validator]
+        D[Verbatim Grounding Validator]
+        M[mock_analysis.json - Offline Fallback]
+    end
+    
+    subgraph LLM Model Pipeline
+        E[google-generativeai API]
+        F[Gemini 1.5 Flash]
+    end
+    
+    subgraph Frontend Dashboard SPA
+        G[index.html Layout]
+        H[style.css Theme]
+        I[app.js State Engine]
+    end
+
+    A -.->|Swapped dynamically| B
+    A2 -.->|Original Dialogue| B
+    B -->|Schema mapping| C
+    B -->|Check quotes| D
+    B -->|Retrieve fallback| M
+    B -->|Live prompt| E
+    E -->|JSON Output| F
+    B -->|REST API & Static files| G
+    G --> I
+    H --> G
+    I -->|Highlight Evidence Lines| G
+    I -->|Save / Approve / Reject| B
+    B -->|Export file| J[reviewed_analysis.json]
+```
+
+### System Components:
 1. **Python FastAPI Backend (`app.py`)**:
    - Parses the unstructured 8-day client-coach conversation transcript.
    - Coordinates the GenAI analysis using the **Gemini 1.5 Flash** model with strict Pydantic JSON schema formatting.
@@ -194,12 +236,15 @@ When deploying LLMs to analyze clinical, coaching, or health conversations, thre
    ```
    http://127.0.0.1:8000
    ```
-5. **Optional Live Gemini Analysis**:
-   - To run live analyses rather than using the mock fallback, add your API key in a `.env` file in the root directory:
+5. **Testing Live LLM Analysis with Different Transcripts**:
+   - Make sure your Gemini API key is configured in the `.env` file in the root directory:
      ```env
-     GEMINI_API_KEY=your_actual_gemini_api_key_here
+     GEMINI_API_KEY=AIzaSyYourActualKeyHere
      ```
-   - Restart the server. Click **Analyze Transcript** on the UI to run the live extraction.
+   - Restart the server so it picks up the key.
+   - **Active Test Data (`transcript.txt`)**: This is the file currently read by the backend. You can modify it, write custom scenarios, or change values (e.g. modify Day 8 steps to `12,000` steps) to test the Gemini extraction accuracy.
+   - **Original Case Study Data (`transcript2.txt`)**: This file contains the unmodified original 8-day conversation from the FUME assignment.
+   - **How to swap**: To test the original case study data, simply rename `transcript2.txt` to `transcript.txt` (or copy its contents into `transcript.txt`) and click **"Analyze Transcript"** in the top-right navbar of the web page. The model will instantly parse and ground the original data!
 
 ---
 
