@@ -231,6 +231,26 @@ async def get_transcript():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def clean_schema(schema: dict) -> dict:
+    """
+    Recursively removes keys that are not supported by the Gemini API's OpenAPI Schema parser,
+    such as 'default', 'title', 'additionalProperties', and 'examples'.
+    """
+    if not isinstance(schema, dict):
+        return schema
+    cleaned = {}
+    for k, v in schema.items():
+        if k in ["title", "default", "additionalProperties", "examples"]:
+            continue
+        if isinstance(v, dict):
+            cleaned[k] = clean_schema(v)
+        elif isinstance(v, list):
+            cleaned[k] = [clean_schema(item) if isinstance(item, dict) else item for item in v]
+        else:
+            cleaned[k] = v
+    return cleaned
+
+
 @app.post("/api/analyze")
 async def analyze_transcript(request: Request):
     """
@@ -292,11 +312,15 @@ async def analyze_transcript(request: Request):
         
         prompt = f"Analyze the following conversation transcript:\n\n{raw_transcript_str}"
         
+        # Get and clean schema from Pydantic model to avoid unsupported OpenAPI fields
+        raw_schema = ClientIntelligenceReport.model_json_schema()
+        cleaned_schema = clean_schema(raw_schema)
+        
         response = model.generate_content(
             prompt,
             generation_config=genai.GenerationConfig(
                 response_mime_type="application/json",
-                response_schema=ClientIntelligenceReport
+                response_schema=cleaned_schema
             )
         )
         
