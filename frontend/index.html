@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUME Client Intelligence Dashboard (Prototype)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Top Premium Navbar -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="logo">
+                <i class="fa-solid fa-brain-circuit"></i>
+                <span>FUME</span>
+            </div>
+            <span class="badge badge-accent">Client Intelligence Platform v1.0</span>
+        </div>
+        <div class="nav-actions">
+            <span id="review-progress" class="review-progress">Review progress: 0/11 items approved</span>
+            <button id="reanalyze-btn" class="btn btn-secondary">
+                <i class="fa-solid fa-arrows-rotate"></i> Analyze Transcript
+            </button>
+            <button id="export-btn" class="btn btn-primary">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Export Intelligence
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- LEFT COLUMN: Raw Conversation Transcript -->
+        <aside class="transcript-panel">
+            <div class="panel-header">
+                <h3>
+                    <i class="fa-regular fa-comments"></i> 
+                    Client-Coach Conversation
+                </h3>
+                <span class="days-pill">8 Days Dialogue</span>
+            </div>
+            <div class="search-bar-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="transcript-search" placeholder="Search raw conversation...">
+            </div>
+            <div id="transcript-container" class="transcript-content">
+                <!-- Transcript lines will be injected here dynamically -->
+                <div class="loading-state">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading conversation transcript...</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: Client Intelligence Dashboard -->
+        <main class="dashboard-panel">
+            <!-- Data Status Banner -->
+            <div id="status-banner" class="status-banner info">
+                <div class="status-icon"><i class="fa-solid fa-circle-info"></i></div>
+                <div class="status-text">
+                    <span id="data-source-label">Source: Ready to analyze transcript</span>
+                    <p id="data-source-desc">Click "Analyze Transcript" to load the latest intelligence report.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 1: Weekly Synthesis -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-chart-line"></i> Weekly Summary</h2>
+                </div>
+                <div id="weekly-summary-card" class="summary-card">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- SECTION 2: Core Client Metrics -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-grip"></i> Structured Metrics</h2>
+                    <span class="section-desc">Pillars of client health and lifestyle adherence</span>
+                </div>
+                <div id="metrics-grid" class="metrics-grid">
+                    <!-- Metrics cards will be injected here -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: Risk & Attention Flags -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-triangle-exclamation text-danger"></i> Attention & Risk Flags</h2>
+                    <span class="section-desc text-danger">Requires immediate coach intervention</span>
+                </div>
+                <div id="risks-container" class="risks-list">
+                    <!-- Risks will be injected here -->
+                </div>
+            </section>
+
+            <!-- SECTION 4: Recommended Coach Next Actions -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-wand-magic-sparkles text-accent"></i> Recommended Next Actions</h2>
+                    <span class="section-desc">AI-guided communication and training suggestions</span>
+                </div>
+                <div id="recommendations-container" class="recommendations-list">
+                    <!-- Recommendation will be injected here -->
+                </div>
+            </section>
+
+            <!-- SECTION 5: Pending Task Actions -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-list-check"></i> Pending Actions Tracker</h2>
+                    <span class="section-desc">Specific action items assigned to Coach or Client</span>
+                </div>
+                <div id="pending-actions-container" class="pending-actions-grid">
+                    <!-- Pending actions will be injected here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-content">
+            <i id="toast-icon" class="fa-solid fa-check-circle"></i>
+            <span id="toast-message">Success! Output saved.</span>
+        </div>
+    </div>
+    <script src="/static/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{
+  "weekly_summary": {
+    "value": "The client experienced a highly stressful week (Day 7) due to intense office pressure and politics, leading to severe exhaustion and a microsleep episode. Sleep averaged 5-5.5 hours on most days, but improved to 8 hours by Day 8, correlating with a boost in energy. Diet was inconsistent, with low protein intake on several days, skipped evening meals, and a failure to establish a salad-before-lunch habit due to stocking issues. Bloating and acidity were persistent complaints throughout the week, though water intake (reaching 3.5-4L) and steps (averaging 6,000-8,000 on active days) were generally solid.",
+    "confidence": "AI Inference",
+    "evidence_quote": "Slept only around 5 hours... Still having acidity and bloating... I am not getting enough time to plan meals... During a meeting today I was so tired that my head went down on the table and I actually slept for a few seconds... Slept better last night, around 8 hours.",
+    "review_status": "Pending"
+  },
+  "categories": {
+    "nutrition_adherence": {
+      "value": "Inconsistent meal frequency and low protein. Had kadhi, soya, and vegetables (Day 1), banana stem juice, tea, apple, and a small piece of paneer (Day 2), lunch with protein/curd/veggies but missed ACV (Day 3), vegetable chapati and ACV (Day 4), forgot sprouts but had roasted chana (Day 5), and low food intake with missing protein (Day 6). Failed to eat salad due to lack of stock.",
+      "confidence": "Client-Reported",
+      "evidence_quote": "Lunch was kadhi with soya and green vegetables... Didn't eat much in the evening. Just a small piece of paneer... Lunch had lots of vegetables, curd and some protein. Forgot ACV today... Breakfast was 1.5 vegetable chapatis with seeds and ajwain... I didn't have sprouts today... Forgot to mention, I had roasted chana at school... Food intake was low today. Protein was also missing.",
+      "review_status": "Pending"
+    },
+    "exercise_steps": {
+      "value": "Moderate to high movement. Activity included mopping, sweeping, Surya Namaskar, walking (15 mins Day 1, 20 mins Day 4, 30 mins exercise Day 8), stretching and running (20 mins Day 5). Steps reached 8,000 on Day 3 and Day 8, 4,500 on Day 4, and 6,000 on Day 7.",
+      "confidence": "Confirmed Fact",
+      "evidence_quote": "Did some mopping, sweeping, Surya Namaskar and walking inside the house... Steps around 8,000... 4,500 steps so far... Did around 20 minutes walking, stretching and breathing today... Did 20 minutes stretching and running... Steps 6,000 today... Did 30 minutes exercise. Steps around 8,000.",
+      "review_status": "Pending"
+    },
+    "sleep": {
+      "value": "Slept 5-5.5 hours on Days 1, 3, and 7 due to daughter's exams and work pressure. Experienced severe sleep deprivation resulting in microsleep on Day 7. Recovered to 8 hours on Day 8 with improved energy.",
+      "confidence": "Client-Reported",
+      "evidence_quote": "Slept only around 5 hours last night. Daughter had exams... Sleep 5 hours... Sleep around 5.5 hours... During a meeting today I was so tired that my head went down on the table and I actually slept for a few seconds... Slept better last night, around 8 hours.",
+      "review_status": "Pending"
+    },
+    "water_intake": {
+      "value": "Consistent water intake, specifically reported as 4 litres on Day 3 and 3.5 litres on Day 8.",
+      "confidence": "Client-Reported",
+      "evidence_quote": "Water 4 litres... Water around 3.5 litres.",
+      "review_status": "Pending"
+    },
+    "symptoms_stress": {
+      "value": "Persistent acidity and bloating (reported on Days 1, 2, 6, and 8). Severe work-related stress and pressure reported on Day 7, causing severe mental and physical exhaustion.",
+      "confidence": "Client-Reported",
+      "evidence_quote": "Feeling some acidity since morning... Still having acidity and bloating... Bloating is back and I feel like I have gained weight... There is a lot of office pressure and politics going on... During a meeting today I was so tired that my head went down on the table and I actually slept for a few seconds... Still having bloating on and off.",
+      "review_status": "Pending"
+    },
+    "engagement_level": {
+      "value": "High. The client provides detailed daily updates on diet, symptoms, and exercise, and proactively apologizes for missing a coach's call due to a workplace situation.",
+      "confidence": "AI Inference",
+      "evidence_quote": "Walk and water done... Forgot to mention, I had roasted chana... Sorry I missed your call. There was a stressful situation at work.",
+      "review_status": "Pending"
+    },
+    "key_barriers": {
+      "value": "Lack of time due to school schedule adjustments and high workload/stress at the office, making it difficult to plan meals and maintain consistent protein intake.",
+      "confidence": "AI Inference",
+      "evidence_quote": "I am not getting enough time to plan meals. Next week should be easier... Slowly we need to adjust the routine around your school schedule also... There is a lot of office pressure and politics going on.",
+      "review_status": "Pending"
+    }
+  },
+  "risk_flags": [
+    {
+      "description": "Severe exhaustion and microsleep episode during a work meeting, signifying high risk of burnout.",
+      "severity": "High",
+      "confidence": "Client-Reported",
+      "evidence_quote": "During a meeting today I was so tired that my head went down on the table and I actually slept for a few seconds.",
+      "review_status": "Pending"
+    },
+    {
+      "description": "Chronic gastrointestinal symptoms (acidity and bloating) that reoccur when meals are skipped or food intake is low.",
+      "severity": "Medium",
+      "confidence": "AI Inference",
+      "evidence_quote": "Still having acidity and bloating... Bloating is back... Still having bloating on and off... Got up with acidity... Please don't skip meals completely.",
+      "review_status": "Pending"
+    }
+  ],
+  "recommended_next_action": {
+    "action_text": "Hold a sync-call to co-design a simple meal prep structure aligned with the school schedule. Advise client on stocking portable proteins (e.g. roasted chana, moong, paneer) and establish a rule to avoid skipping evening meals to resolve acidity.",
+    "rationale": "Addressing the time barrier for meal prep is key to resolving the client's low protein, skipped meals, and associated acidity/bloating. Discussing work boundary management and sleep hygiene will help address burnout.",
+    "confidence": "AI Inference",
+    "evidence_quote": "Slowly we need to adjust the routine around your school schedule... I am not getting enough time to plan meals... Please don't skip meals completely.",
+    "review_status": "Pending"
+  },
+  "pending_actions": [
+    {
+      "action_text": "Stock vegetables at home to ensure salad availability before lunch.",
+      "assigned_to": "Client",
+      "confidence": "Client-Reported",
+      "evidence_quote": "No. I still need to stock vegetables properly. Will do it tomorrow.",
+      "review_status": "Pending"
+    },
+    {
+      "action_text": "Set reminders for meal timings to prevent accidental meal skipping.",
+      "assigned_to": "Client",
+      "confidence": "Client-Reported",
+      "evidence_quote": "Coach: Set a reminder around meal timings. Client: Yes, will do.",
+      "review_status": "Pending"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Keys / Configuration
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Local Databases / Outputs
+reviewed_analysis.json
+
+# IDE / Editor config
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
